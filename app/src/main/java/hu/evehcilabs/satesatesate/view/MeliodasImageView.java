@@ -2,8 +2,12 @@ package hu.evehcilabs.satesatesate.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import hu.evehcilabs.satesatesate.helper.AnimationHelper;
 
 public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageView {
+
+  private AnimationHelper animationHelper;
+
   public MeliodasImageView(Context context) {
     super(context);
   }
@@ -16,15 +20,21 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     super(context, attrs, defStyleAttr);
   }
 
+  public AnimationHelper getAnimationHelper() {
+    return animationHelper;
+  }
+
+  @Override protected void onAttachedToWindow() {
+    super.onAttachedToWindow();
+    animationHelper = new AnimationHelper(this);
+  }
+
+  @Override protected void onDetachedFromWindow() {
+    animationHelper.destroy();
+    super.onDetachedFromWindow();
+  }
+
   // region Animations
-
-  private void startWiggleanimation() {
-    // TODO: Implement
-  }
-
-  private void stopWiggleAnimation() {
-    // TODO: Implement
-  }
 
   private void startSlideInAnimation() {
     // TODO: Implement
