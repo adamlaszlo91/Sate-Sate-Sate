@@ -57,6 +57,7 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     setupLayoutParams();
     setupConstraintsForSizeAndCenterPosition();
     setupConstraintsForRandomPositionAndPerpendicularBias();
+    setRotationForPlacement();
   }
 
   public void setupSizeAndCenterPosition() {
@@ -108,6 +109,23 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     }
     positionInParent = randomPositionExcludingCenter;
     constraintSet.applyTo(parent);
+  }
+
+  private void setRotationForPlacement() {
+    switch (positionInParent) {
+      case TOP:
+        setRotation(180.0f);
+        break;
+      case LEFT:
+        setRotation(90.0f);
+        break;
+      case BOTTOM:
+        setRotation(0.0f);
+        break;
+      case RIGHT:
+        setRotation(-90.0f);
+      default:
+    }
   }
 
   // endregion
