@@ -51,21 +51,31 @@ public class MainFragment extends BaseFragment {
 
   private void makeMeliodasClonesAppear() {
     initMeliodasClones();
+    startMeliodasClonesAnimation();
   }
 
   private void initMeliodasClones() {
     meliodasClones = new MeliodasImageView[LOSTVAYNE_CLONE_MULTIPLIER];
     for (int i = 0; i < LOSTVAYNE_CLONE_MULTIPLIER; i++) {
-      MeliodasImageView meliodasClone = new MeliodasImageView(getActivity());
+      final MeliodasImageView meliodasClone = new MeliodasImageView(getActivity());
       meliodasClone.setId(ViewCompat.generateViewId());
       meliodasFigureContainer.addView(meliodasClone);
       meliodasClone.setupSizeAndRandomPosition();
+      meliodasClone.setVisibility(View.INVISIBLE);
       meliodasClones[i] = meliodasClone;
     }
   }
 
   private void startMeliodasClonesAnimation() {
-
+    for (int i = 0; i < LOSTVAYNE_CLONE_MULTIPLIER; i++) {
+      final MeliodasImageView meliodasClone = meliodasClones[i];
+      meliodasClone.post(new Runnable() {
+        @Override public void run() {
+          meliodasClone.reStartBounceInOutAnimation();
+          meliodasClone.setVisibility(View.VISIBLE);
+        }
+      });
+    }
   }
 
   // endregion

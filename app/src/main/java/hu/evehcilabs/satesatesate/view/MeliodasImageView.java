@@ -8,6 +8,11 @@ import hu.evehcilabs.satesatesate.R;
 import hu.evehcilabs.satesatesate.helper.AnimationHelper;
 import java.util.Random;
 
+import static hu.evehcilabs.satesatesate.Constant.ROTATION_DEGREE_0;
+import static hu.evehcilabs.satesatesate.Constant.ROTATION_DEGREE_180;
+import static hu.evehcilabs.satesatesate.Constant.ROTATION_DEGREE_270;
+import static hu.evehcilabs.satesatesate.Constant.ROTATION_DEGREE_90;
+
 public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageView {
 
   enum PositionInParent {
@@ -37,10 +42,6 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     setScaleType(ScaleType.CENTER_INSIDE);
   }
 
-  public AnimationHelper getAnimationHelper() {
-    return animationHelper;
-  }
-
   @Override protected void onAttachedToWindow() {
     super.onAttachedToWindow();
     animationHelper = new AnimationHelper(this);
@@ -49,6 +50,16 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
   @Override protected void onDetachedFromWindow() {
     animationHelper.destroy();
     super.onDetachedFromWindow();
+  }
+
+  public void reStartWiggleAnimation() {
+    animationHelper.stopWiggleAnimation();
+    animationHelper.startWiggleAnimation();
+  }
+
+  public void reStartBounceInOutAnimation() {
+    animationHelper.stopBounceInOutAnimation();
+    animationHelper.startBounceInOutAnimation();
   }
 
   // region Layout parameter generation
@@ -114,34 +125,18 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
   private void setRotationForPlacement() {
     switch (positionInParent) {
       case TOP:
-        setRotation(180.0f);
+        setRotation(ROTATION_DEGREE_180);
         break;
       case LEFT:
-        setRotation(90.0f);
+        setRotation(ROTATION_DEGREE_90);
         break;
       case BOTTOM:
-        setRotation(0.0f);
+        setRotation(ROTATION_DEGREE_0);
         break;
       case RIGHT:
-        setRotation(-90.0f);
+        setRotation(ROTATION_DEGREE_270);
       default:
     }
-  }
-
-  // endregion
-
-  // region Animations
-
-  private void startSlideInAnimation() {
-    // TODO: Implement
-  }
-
-  private void startSlideOutAnimation() {
-    // TODO: Implement
-  }
-
-  private void stopAllAnimation() {
-    // TODO: Implement
   }
 
   // endregion
