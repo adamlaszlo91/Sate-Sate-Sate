@@ -79,22 +79,22 @@ public class MainFragment extends BaseFragment {
         stopAllAnimations();
         pauseAllSounds();
         float randomActionChange = new Random().nextFloat();
-        if (randomActionChange < 0.2) {
-          showToast(getString(R.string.toast_sate_sate_sate));
-          meliodasImageView.startWiggleAnimation();
-          mediaPlayerHelper.startSateSateSate();
-        } else if (randomActionChange < 0.4) {
+        if (randomActionChange < 0.05) {
+          showToast(getString(R.string.toast_tanchou));
+          mediaPlayerHelper.startTanchou();
+        } else if (randomActionChange < 0.15) {
           showToast(getString(R.string.toast_sate_sate_sate_multi));
           meliodasImageView.startWiggleAnimation();
           showMeliodasClones();
           mediaPlayerHelper.startSateSateSateMulti();
-        } else if (randomActionChange < 0.6) {
-          showToast(getString(R.string.toast_tanchou));
-          mediaPlayerHelper.startTanchou();
-        } else {
+        } else if (randomActionChange < 0.25) {
           showToast(getString(R.string.toast_sate_mix));
           meliodasImageView.startSpinningAnimation();
           mediaPlayerHelper.startSateSateSateRemix();
+        } else {
+          showToast(getString(R.string.toast_sate_sate_sate));
+          meliodasImageView.startWiggleAnimation();
+          mediaPlayerHelper.startSateSateSate();
         }
       }
     });
