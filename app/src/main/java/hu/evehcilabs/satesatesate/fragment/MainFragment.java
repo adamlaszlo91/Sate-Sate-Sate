@@ -27,6 +27,7 @@ public class MainFragment extends BaseFragment {
   private ArrayList<MeliodasImageView> meliodasClones = new ArrayList<>();
   private TextView tapMeliodasTextView;
   private MediaPlayerHelper mediaPlayerHelper;
+  private Toast currentToast;
 
   public static MainFragment newInstance() {
     return new MainFragment();
@@ -126,7 +127,11 @@ public class MainFragment extends BaseFragment {
   }
 
   private void showToast(String message) {
-    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    if (currentToast != null) {
+      currentToast.cancel();
+    }
+    currentToast = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
+    currentToast.show();
   }
 
   // region Meliodas clones
