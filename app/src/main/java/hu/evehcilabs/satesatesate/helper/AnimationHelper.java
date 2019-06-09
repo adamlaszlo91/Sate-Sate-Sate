@@ -2,10 +2,7 @@ package hu.evehcilabs.satesatesate.helper;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.OvershootInterpolator;
-import android.view.animation.RotateAnimation;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.*;
 import java.util.Random;
 
 import static hu.evehcilabs.satesatesate.Constant.ROTATION_DEGREE_0;
@@ -19,6 +16,7 @@ public class AnimationHelper {
   private Animation wiggleAnimationMiddle;
   private Animation wiggleAnimationEnd;
   private Animation bounceInOutAnimation;
+  private Animation spinningAnimation;
 
   public AnimationHelper(View view) {
     this.view = view;
@@ -32,6 +30,7 @@ public class AnimationHelper {
   public void stopAnimations() {
     stopWiggleAnimation();
     stopBounceInOutAnimation();
+    stopSpinningAnimation();
     view.clearAnimation();
   }
 
@@ -113,8 +112,6 @@ public class AnimationHelper {
   // region Bounce in animation
 
   public void startBounceInOutAnimation() {
-    view.setVisibility(View.INVISIBLE);
-    view.setVisibility(View.VISIBLE);
     initBounceInOutAnimation();
     initBounceInOutAnimationListener();
     view.startAnimation(bounceInOutAnimation);
@@ -181,6 +178,50 @@ public class AnimationHelper {
       bounceInOutAnimation.setAnimationListener(null);
       bounceInOutAnimation.cancel();
       bounceInOutAnimation = null;
+    }
+  }
+
+  // endregion
+
+  // region Spinning
+
+  public void startSpinningAnimation() {
+    initSpinningAnimation();
+    initSpinningAnimationListener();
+    view.startAnimation(spinningAnimation);
+  }
+
+  private void initSpinningAnimation() {
+    RotateAnimation animation =
+      new RotateAnimation(0.f, 360.0f, view.getWidth()/2.0f, view.getHeight()/2.0f);
+    animation.setRepeatCount(17);
+    animation.setRepeatMode(Animation.RESTART);
+    animation.setDuration(1700);
+    animation.setInterpolator(new LinearInterpolator());
+    spinningAnimation = animation;
+  }
+
+  private void initSpinningAnimationListener() {
+    spinningAnimation.setAnimationListener(new Animation.AnimationListener() {
+      @Override public void onAnimationStart(Animation animation) {
+
+      }
+
+      @Override public void onAnimationEnd(Animation animation) {
+        stopAnimations();
+      }
+
+      @Override public void onAnimationRepeat(Animation animation) {
+
+      }
+    });
+  }
+
+  private void stopSpinningAnimation() {
+    if (spinningAnimation != null) {
+      spinningAnimation.setAnimationListener(null);
+      spinningAnimation.cancel();
+      spinningAnimation = null;
     }
   }
 

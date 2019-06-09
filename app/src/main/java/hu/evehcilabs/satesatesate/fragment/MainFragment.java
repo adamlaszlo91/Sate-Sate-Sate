@@ -79,25 +79,30 @@ public class MainFragment extends BaseFragment {
         stopAllAnimations();
         pauseAllSounds();
         float randomActionChange = new Random().nextFloat();
-        if (randomActionChange < 0.3) {
+        if (randomActionChange < 0.2) {
           showToast(getString(R.string.toast_sate_sate_sate));
           meliodasImageView.startWiggleAnimation();
           mediaPlayerHelper.startSateSateSate();
-        } else if (randomActionChange < 0.6){
+        } else if (randomActionChange < 0.4) {
           showToast(getString(R.string.toast_sate_sate_sate_multi));
           meliodasImageView.startWiggleAnimation();
           showMeliodasClones();
           mediaPlayerHelper.startSateSateSateMulti();
-        }else{
+        } else if (randomActionChange < 0.6) {
           showToast(getString(R.string.toast_tanchou));
           mediaPlayerHelper.startTanchou();
+        } else {
+          showToast(getString(R.string.toast_sate_mix));
+          meliodasImageView.startSpinningAnimation();
+          mediaPlayerHelper.startSateSateSateRemix();
         }
       }
     });
   }
 
   private void tapCounterTextNeedsUpdate(int tapCount) {
-    tapMeliodasTextView.setText(String.format("%s\n%d", getString(R.string.text_tap_meliodas), tapCount));
+    tapMeliodasTextView.setText(
+      String.format("%s\n%d", getString(R.string.text_tap_meliodas), tapCount));
   }
 
   private void stopAllAnimations() {
@@ -115,6 +120,7 @@ public class MainFragment extends BaseFragment {
     mediaPlayerHelper.pauseSateSateSate();
     mediaPlayerHelper.pauseSateSateSateMulti();
     mediaPlayerHelper.pauseTanchou();
+    mediaPlayerHelper.pauseSateSateSateRemix();
   }
 
   private void showToast(String message) {

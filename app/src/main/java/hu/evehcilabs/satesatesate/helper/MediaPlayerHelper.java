@@ -8,11 +8,13 @@ public class MediaPlayerHelper {
   private MediaPlayer sateSateSateMediaPlayer;
   private MediaPlayer sateSateSateMultiMediaPlayer;
   private MediaPlayer tanchouMediaPlayer;
+  private MediaPlayer sateSateSateRemixMediaPlayer;
 
   public MediaPlayerHelper(Context context) {
     sateSateSateMediaPlayer = MediaPlayer.create(context, R.raw.sate_sate_sate);
     sateSateSateMultiMediaPlayer = MediaPlayer.create(context, R.raw.sate_sate_sate_multi);
     tanchouMediaPlayer = MediaPlayer.create(context, R.raw.ban_taisho);
+    sateSateSateRemixMediaPlayer = MediaPlayer.create(context, R.raw.sate_sate_sate_remix);
   }
 
   public void destroy() {
@@ -28,6 +30,10 @@ public class MediaPlayerHelper {
       tanchouMediaPlayer.stop();
     }
     tanchouMediaPlayer.release();
+    if (sateSateSateRemixMediaPlayer.isPlaying()) {
+      sateSateSateRemixMediaPlayer.stop();
+    }
+    sateSateSateRemixMediaPlayer.release();
   }
 
   // region Sate sate sate
@@ -74,6 +80,21 @@ public class MediaPlayerHelper {
   public void pauseTanchou() {
     if (tanchouMediaPlayer.isPlaying()) {
       tanchouMediaPlayer.pause();
+    }
+  }
+
+  // endregion
+
+  // region Sate sate sate remix
+
+  public void startSateSateSateRemix() {
+    sateSateSateRemixMediaPlayer.seekTo(0);
+    sateSateSateRemixMediaPlayer.start();
+  }
+
+  public void pauseSateSateSateRemix() {
+    if (sateSateSateRemixMediaPlayer.isPlaying()) {
+      sateSateSateRemixMediaPlayer.pause();
     }
   }
 

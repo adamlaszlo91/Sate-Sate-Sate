@@ -60,6 +60,10 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     animationHelper.startBounceInOutAnimation();
   }
 
+  public void startSpinningAnimation() {
+    animationHelper.startSpinningAnimation();
+  }
+
   public void stopAnimations() {
     animationHelper.stopAnimations();
   }
