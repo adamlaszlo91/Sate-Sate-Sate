@@ -28,6 +28,7 @@ public class MediaPlayerHelper {
 
   public void startSateSateSate() {
     // The audio is not perfect, we need to seek into it
+    // TODO: Edit audio later
     sateSateSateMediaPlayer.seekTo(700);
     sateSateSateMediaPlayer.start();
   }
@@ -44,6 +45,7 @@ public class MediaPlayerHelper {
 
   public void startSateSateSateMulti() {
     // The audio is not perfect, we need to seek into it
+    // TODO: Edit audio later
     sateSateSateMultiMediaPlayer.seekTo(700);
     sateSateSateMultiMediaPlayer.start();
   }

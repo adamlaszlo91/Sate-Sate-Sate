@@ -6,6 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
+import java.util.Random;
 
 import static hu.evehcilabs.satesatesate.Constant.ROTATION_DEGREE_0;
 import static hu.evehcilabs.satesatesate.Constant.ROTATION_DEGREE_180;
@@ -23,10 +24,15 @@ public class AnimationHelper {
     this.view = view;
   }
 
-  public void destroy() {
+  public void stopAndRelease() {
+    stopAnimations();
+    view = null;
+  }
+
+  public void stopAnimations() {
     stopWiggleAnimation();
     stopBounceInOutAnimation();
-    view = null;
+    view.clearAnimation();
   }
 
   // region Wiggle animation
@@ -35,24 +41,6 @@ public class AnimationHelper {
     initWiggleAnimations();
     initWiggleAnimationListeners();
     view.startAnimation(wiggleAnimationStart);
-  }
-
-  public void stopWiggleAnimation() {
-    if (wiggleAnimationStart != null) {
-      wiggleAnimationStart.setAnimationListener(null);
-      wiggleAnimationStart.cancel();
-      wiggleAnimationStart = null;
-    }
-    if (wiggleAnimationMiddle != null) {
-      wiggleAnimationMiddle.setAnimationListener(null);
-      wiggleAnimationMiddle.cancel();
-      wiggleAnimationMiddle = null;
-    }
-    if (wiggleAnimationEnd != null) {
-      wiggleAnimationEnd.setAnimationListener(null);
-      wiggleAnimationEnd.cancel();
-      wiggleAnimationEnd = null;
-    }
   }
 
   private void initWiggleAnimations() {
@@ -102,22 +90,34 @@ public class AnimationHelper {
     });
   }
 
+  private void stopWiggleAnimation() {
+    if (wiggleAnimationStart != null) {
+      wiggleAnimationStart.setAnimationListener(null);
+      wiggleAnimationStart.cancel();
+      wiggleAnimationStart = null;
+    }
+    if (wiggleAnimationMiddle != null) {
+      wiggleAnimationMiddle.setAnimationListener(null);
+      wiggleAnimationMiddle.cancel();
+      wiggleAnimationMiddle = null;
+    }
+    if (wiggleAnimationEnd != null) {
+      wiggleAnimationEnd.setAnimationListener(null);
+      wiggleAnimationEnd.cancel();
+      wiggleAnimationEnd = null;
+    }
+  }
+
   // endregion
 
   // region Bounce in animation
 
   public void startBounceInOutAnimation() {
+    view.setVisibility(View.INVISIBLE);
+    view.setVisibility(View.VISIBLE);
     initBounceInOutAnimation();
     initBounceInOutAnimationListener();
     view.startAnimation(bounceInOutAnimation);
-  }
-
-  public void stopBounceInOutAnimation() {
-    if (bounceInOutAnimation != null) {
-      bounceInOutAnimation.setAnimationListener(null);
-      bounceInOutAnimation.cancel();
-      bounceInOutAnimation = null;
-    }
   }
 
   private void initBounceInOutAnimation() {
@@ -154,8 +154,9 @@ public class AnimationHelper {
       new TranslateAnimation(fromXDelta, toXDelta, fromYDelta, toYDelta);
     animation.setRepeatCount(1);
     animation.setRepeatMode(Animation.REVERSE);
-    animation.setDuration(1000);
+    animation.setDuration(800);
     animation.setInterpolator(new OvershootInterpolator());
+    animation.setStartOffset(new Random().nextInt(1000));
     bounceInOutAnimation = animation;
   }
 
@@ -173,6 +174,14 @@ public class AnimationHelper {
 
       }
     });
+  }
+
+  private void stopBounceInOutAnimation() {
+    if (bounceInOutAnimation != null) {
+      bounceInOutAnimation.setAnimationListener(null);
+      bounceInOutAnimation.cancel();
+      bounceInOutAnimation = null;
+    }
   }
 
   // endregion
