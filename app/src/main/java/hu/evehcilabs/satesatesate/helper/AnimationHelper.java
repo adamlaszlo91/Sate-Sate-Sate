@@ -58,17 +58,17 @@ public class AnimationHelper {
   private void initWiggleAnimations() {
     wiggleAnimationStart =
       new RotateAnimation(0.f, -30.0f, view.getWidth()/2.0f, view.getHeight()/2.0f);
-    wiggleAnimationStart.setDuration(250);
+    wiggleAnimationStart.setDuration(175);
     wiggleAnimationStart.setRepeatCount(0);
 
     wiggleAnimationMiddle =
       new RotateAnimation(-30.f, 30.0f, view.getWidth()/2.0f, view.getHeight()/2.0f);
-    wiggleAnimationMiddle.setDuration(500);
+    wiggleAnimationMiddle.setDuration(350);
     wiggleAnimationMiddle.setRepeatMode(Animation.REVERSE);
-    wiggleAnimationMiddle.setRepeatCount(4);
+    wiggleAnimationMiddle.setRepeatCount(2);
 
     wiggleAnimationEnd = new RotateAnimation(30.f, 0f, view.getWidth()/2.0f, view.getHeight()/2.0f);
-    wiggleAnimationEnd.setDuration(250);
+    wiggleAnimationEnd.setDuration(175);
     wiggleAnimationEnd.setRepeatCount(0);
   }
 

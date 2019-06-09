@@ -1,5 +1,6 @@
 package hu.evehcilabs.satesatesate.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import hu.evehcilabs.androidbase.BaseFragment;
 import hu.evehcilabs.satesatesate.R;
+import hu.evehcilabs.satesatesate.helper.MediaPlayerHelper;
 import hu.evehcilabs.satesatesate.view.MeliodasImageView;
 
 public class MainFragment extends BaseFragment {
@@ -18,9 +20,31 @@ public class MainFragment extends BaseFragment {
   private ConstraintLayout meliodasFigureContainer;
   private MeliodasImageView meliodasImageView;
   private MeliodasImageView[] meliodasClones;
+  private MediaPlayerHelper mediaPlayerHelper;
 
   public static MainFragment newInstance() {
     return new MainFragment();
+  }
+
+  @Override public void onAttach(Context context) {
+    super.onAttach(context);
+    mediaPlayerHelper = new MediaPlayerHelper(getActivity());
+  }
+
+  @Override public void onDetach() {
+    mediaPlayerHelper.destroy();
+    super.onDetach();
+  }
+
+  @Override public void onStop() {
+    meliodasImageView.stopAnimations();
+    if (meliodasClones != null) {
+      for (MeliodasImageView meliodasImageView : meliodasClones) {
+        meliodasImageView.stopAnimations();
+      }
+    }
+    mediaPlayerHelper.pauseSateSateSate();
+    super.onStop();
   }
 
   @Nullable @Override public View onCreateView(
@@ -41,8 +65,9 @@ public class MainFragment extends BaseFragment {
   private void initActions() {
     meliodasImageView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        //meliodasImageView.getAnimationHelper().reStartWiggleAnimation();
-        makeMeliodasClonesAppear();
+        meliodasImageView.reStartWiggleAnimation();
+        mediaPlayerHelper.restartSateSateSate();
+        //makeMeliodasClonesAppear();
       }
     });
   }
