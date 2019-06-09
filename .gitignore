@@ -261,3 +261,6 @@ $RECYCLE.BIN/
 
 # Ignore Android base module
 androidbase
+
+# Sensitive files
+google-services.json
