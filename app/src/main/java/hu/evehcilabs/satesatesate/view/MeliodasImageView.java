@@ -38,7 +38,7 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
   }
 
   private void customInit() {
-    setImageResource(R.drawable.placeholder_common);
+    setImageResource(R.drawable.chibi_meliodas_by_katelinelaine_dccjqua);
     setScaleType(ScaleType.CENTER_INSIDE);
   }
 

@@ -57,17 +57,18 @@ public class AnimationHelper {
 
   private void initWiggleAnimations() {
     wiggleAnimationStart =
-      new RotateAnimation(0.f, -30.0f, view.getWidth()/2.0f, view.getHeight()/2.0f);
+      new RotateAnimation(0.f, -30.0f, view.getWidth()/2.0f, view.getHeight()*0.75f);
     wiggleAnimationStart.setDuration(175);
     wiggleAnimationStart.setRepeatCount(0);
 
     wiggleAnimationMiddle =
-      new RotateAnimation(-30.f, 30.0f, view.getWidth()/2.0f, view.getHeight()/2.0f);
+      new RotateAnimation(-30.f, 30.0f, view.getWidth()/2.0f, view.getHeight()*0.75f);
     wiggleAnimationMiddle.setDuration(350);
     wiggleAnimationMiddle.setRepeatMode(Animation.REVERSE);
     wiggleAnimationMiddle.setRepeatCount(2);
 
-    wiggleAnimationEnd = new RotateAnimation(30.f, 0f, view.getWidth()/2.0f, view.getHeight()/2.0f);
+    wiggleAnimationEnd =
+      new RotateAnimation(30.f, 0f, view.getWidth()/2.0f, view.getHeight()*0.75f);
     wiggleAnimationEnd.setDuration(175);
     wiggleAnimationEnd.setRepeatCount(0);
   }
@@ -128,25 +129,25 @@ public class AnimationHelper {
       case ROTATION_DEGREE_0:
         toXDelta = 0;
         fromXDelta = 0;
-        toYDelta = 0;
+        toYDelta = view.getHeight()*0.25F;
         fromYDelta = view.getHeight();
         break;
       case ROTATION_DEGREE_90:
         toYDelta = 0;
         fromYDelta = 0;
-        toXDelta = 0;
+        toXDelta = -view.getHeight()*0.25F;
         fromXDelta = -view.getHeight();
         break;
       case ROTATION_DEGREE_180:
         toXDelta = 0;
         fromXDelta = 0;
-        toYDelta = 0;
+        toYDelta = -view.getHeight()*0.25F;
         fromYDelta = -view.getHeight();
         break;
       default:
         toYDelta = 0;
         fromYDelta = 0;
-        toXDelta = 0;
+        toXDelta = view.getHeight()*0.25F;
         fromXDelta = view.getHeight();
     }
     TranslateAnimation animation =
