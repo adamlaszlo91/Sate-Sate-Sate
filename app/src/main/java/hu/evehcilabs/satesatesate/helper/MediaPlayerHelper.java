@@ -26,8 +26,7 @@ public class MediaPlayerHelper {
 
   // region Sate sate sate
 
-  public void restartSateSateSate() {
-    pauseSateSateSate();
+  public void startSateSateSate() {
     // The audio is not perfect, we need to seek into it
     sateSateSateMediaPlayer.seekTo(700);
     sateSateSateMediaPlayer.start();
@@ -43,8 +42,7 @@ public class MediaPlayerHelper {
 
   // region Sate sate sate multi
 
-  public void restartSateSateSateMulti() {
-    pauseSateSateSateMulti();
+  public void startSateSateSateMulti() {
     // The audio is not perfect, we need to seek into it
     sateSateSateMultiMediaPlayer.seekTo(700);
     sateSateSateMultiMediaPlayer.start();
