@@ -19,7 +19,7 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     TOP, BOTTOM, LEFT, RIGHT, CENTER;
   }
 
-  private AnimationHelper animationHelper;
+  private AnimationHelper animationHelper = null;
   private PositionInParent positionInParent = PositionInParent.CENTER;
 
   public MeliodasImageView(Context context) {
@@ -38,7 +38,7 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
   }
 
   private void customInit() {
-    setImageResource(R.drawable.placeholder_common);
+    setImageResource(R.drawable.chibi_meliodas_by_katelinelaine_dccjqua);
     setScaleType(ScaleType.CENTER_INSIDE);
   }
 
@@ -48,7 +48,7 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
   }
 
   @Override protected void onDetachedFromWindow() {
-    animationHelper.destroy();
+    animationHelper.stopAndRelease();
     super.onDetachedFromWindow();
   }
 
@@ -60,10 +60,8 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     animationHelper.startBounceInOutAnimation();
   }
 
-  public void stopAnimations(){
-    animationHelper.stopWiggleAnimation();
-    animationHelper.stopBounceInOutAnimation();
-    clearAnimation();
+  public void stopAnimations() {
+    animationHelper.stopAnimations();
   }
 
   // region Layout parameter generation
@@ -72,7 +70,8 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     setupLayoutParams();
     setupConstraintsForSizeAndCenterPosition();
     setupConstraintsForRandomPositionAndPerpendicularBias();
-    setRotationForPlacement();
+    setRotationForPosition();
+    requestLayout();
   }
 
   public void setupSizeAndCenterPosition() {
@@ -126,7 +125,7 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     constraintSet.applyTo(parent);
   }
 
-  private void setRotationForPlacement() {
+  private void setRotationForPosition() {
     switch (positionInParent) {
       case TOP:
         setRotation(ROTATION_DEGREE_180);
