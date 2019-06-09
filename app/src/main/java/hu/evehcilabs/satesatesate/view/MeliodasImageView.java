@@ -52,19 +52,18 @@ public class MeliodasImageView extends androidx.appcompat.widget.AppCompatImageV
     super.onDetachedFromWindow();
   }
 
-  public void reStartWiggleAnimation() {
-    animationHelper.stopWiggleAnimation();
+  public void startWiggleAnimation() {
     animationHelper.startWiggleAnimation();
   }
 
-  public void reStartBounceInOutAnimation() {
-    animationHelper.stopBounceInOutAnimation();
+  public void startBounceInOutAnimation() {
     animationHelper.startBounceInOutAnimation();
   }
 
   public void stopAnimations(){
     animationHelper.stopWiggleAnimation();
     animationHelper.stopBounceInOutAnimation();
+    clearAnimation();
   }
 
   // region Layout parameter generation

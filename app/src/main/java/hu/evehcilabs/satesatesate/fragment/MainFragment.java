@@ -13,13 +13,14 @@ import hu.evehcilabs.androidbase.BaseFragment;
 import hu.evehcilabs.satesatesate.R;
 import hu.evehcilabs.satesatesate.helper.MediaPlayerHelper;
 import hu.evehcilabs.satesatesate.view.MeliodasImageView;
+import java.util.Random;
 
 public class MainFragment extends BaseFragment {
   private static final int LOSTVAYNE_CLONE_MULTIPLIER = 4;
 
   private ConstraintLayout meliodasFigureContainer;
   private MeliodasImageView meliodasImageView;
-  private MeliodasImageView[] meliodasClones;
+  private MeliodasImageView[] meliodasClones = new MeliodasImageView[LOSTVAYNE_CLONE_MULTIPLIER];
   private MediaPlayerHelper mediaPlayerHelper;
 
   public static MainFragment newInstance() {
@@ -37,13 +38,8 @@ public class MainFragment extends BaseFragment {
   }
 
   @Override public void onStop() {
-    meliodasImageView.stopAnimations();
-    if (meliodasClones != null) {
-      for (MeliodasImageView meliodasImageView : meliodasClones) {
-        meliodasImageView.stopAnimations();
-      }
-    }
-    mediaPlayerHelper.pauseSateSateSate();
+    stopAllAnimations();
+    pauseAllSounds();
     super.onStop();
   }
 
@@ -65,11 +61,34 @@ public class MainFragment extends BaseFragment {
   private void initActions() {
     meliodasImageView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        meliodasImageView.reStartWiggleAnimation();
-        mediaPlayerHelper.restartSateSateSate();
-        //makeMeliodasClonesAppear();
+        stopAllAnimations();
+        pauseAllSounds();
+        float randomActionChange = new Random().nextFloat();
+        if (randomActionChange < 0.5) {
+          meliodasImageView.startWiggleAnimation();
+          mediaPlayerHelper.startSateSateSate();
+        } else {
+          makeMeliodasClonesAppear();
+          meliodasImageView.startWiggleAnimation();
+          mediaPlayerHelper.startSateSateSateMulti();
+        }
       }
     });
+  }
+
+  private void stopAllAnimations() {
+    meliodasImageView.stopAnimations();
+    for (MeliodasImageView meliodasImageView : meliodasClones) {
+      if (meliodasImageView != null) {
+        meliodasImageView.stopAnimations();
+        meliodasFigureContainer.removeView(meliodasImageView);
+      }
+    }
+  }
+
+  private void pauseAllSounds() {
+    mediaPlayerHelper.pauseSateSateSate();
+    mediaPlayerHelper.pauseSateSateSateMulti();
   }
 
   // region Meliodas clones
@@ -80,8 +99,7 @@ public class MainFragment extends BaseFragment {
   }
 
   private void initMeliodasClones() {
-    meliodasClones = new MeliodasImageView[LOSTVAYNE_CLONE_MULTIPLIER];
-    for (int i = 0; i < LOSTVAYNE_CLONE_MULTIPLIER; i++) {
+    for (int i = 0; i < meliodasClones.length; i++) {
       final MeliodasImageView meliodasClone = new MeliodasImageView(getActivity());
       meliodasClone.setId(ViewCompat.generateViewId());
       meliodasFigureContainer.addView(meliodasClone);
@@ -92,11 +110,11 @@ public class MainFragment extends BaseFragment {
   }
 
   private void startMeliodasClonesAnimation() {
-    for (int i = 0; i < LOSTVAYNE_CLONE_MULTIPLIER; i++) {
+    for (int i = 0; i < meliodasClones.length; i++) {
       final MeliodasImageView meliodasClone = meliodasClones[i];
       meliodasClone.post(new Runnable() {
         @Override public void run() {
-          meliodasClone.reStartBounceInOutAnimation();
+          meliodasClone.startBounceInOutAnimation();
           meliodasClone.setVisibility(View.VISIBLE);
         }
       });

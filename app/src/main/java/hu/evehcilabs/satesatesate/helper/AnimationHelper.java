@@ -153,7 +153,7 @@ public class AnimationHelper {
       new TranslateAnimation(fromXDelta, toXDelta, fromYDelta, toYDelta);
     animation.setRepeatCount(1);
     animation.setRepeatMode(Animation.REVERSE);
-    animation.setDuration(400);
+    animation.setDuration(1000);
     animation.setInterpolator(new OvershootInterpolator());
     bounceInOutAnimation = animation;
   }
