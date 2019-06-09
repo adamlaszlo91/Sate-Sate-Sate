@@ -5,12 +5,14 @@ import android.media.MediaPlayer;
 import hu.evehcilabs.satesatesate.R;
 
 public class MediaPlayerHelper {
-  MediaPlayer sateSateSateMediaPlayer;
-  MediaPlayer sateSateSateMultiMediaPlayer;
+  private MediaPlayer sateSateSateMediaPlayer;
+  private MediaPlayer sateSateSateMultiMediaPlayer;
+  private MediaPlayer tanchouMediaPlayer;
 
   public MediaPlayerHelper(Context context) {
     sateSateSateMediaPlayer = MediaPlayer.create(context, R.raw.sate_sate_sate);
     sateSateSateMultiMediaPlayer = MediaPlayer.create(context, R.raw.sate_sate_sate_multi);
+    tanchouMediaPlayer = MediaPlayer.create(context, R.raw.ban_taisho);
   }
 
   public void destroy() {
@@ -22,6 +24,10 @@ public class MediaPlayerHelper {
       sateSateSateMultiMediaPlayer.stop();
     }
     sateSateSateMultiMediaPlayer.release();
+    if (tanchouMediaPlayer.isPlaying()) {
+      tanchouMediaPlayer.stop();
+    }
+    tanchouMediaPlayer.release();
   }
 
   // region Sate sate sate
@@ -53,6 +59,21 @@ public class MediaPlayerHelper {
   public void pauseSateSateSateMulti() {
     if (sateSateSateMultiMediaPlayer.isPlaying()) {
       sateSateSateMultiMediaPlayer.pause();
+    }
+  }
+
+  // endregion
+
+  // region Tanchou
+
+  public void startTanchou() {
+    tanchouMediaPlayer.seekTo(0);
+    tanchouMediaPlayer.start();
+  }
+
+  public void pauseTanchou() {
+    if (tanchouMediaPlayer.isPlaying()) {
+      tanchouMediaPlayer.pause();
     }
   }
 

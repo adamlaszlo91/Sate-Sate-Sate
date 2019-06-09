@@ -79,15 +79,18 @@ public class MainFragment extends BaseFragment {
         stopAllAnimations();
         pauseAllSounds();
         float randomActionChange = new Random().nextFloat();
-        if (randomActionChange < 0.5) {
+        if (randomActionChange < 0.3) {
           showToast(getString(R.string.toast_sate_sate_sate));
           meliodasImageView.startWiggleAnimation();
           mediaPlayerHelper.startSateSateSate();
-        } else {
+        } else if (randomActionChange < 0.6){
           showToast(getString(R.string.toast_sate_sate_sate_multi));
           meliodasImageView.startWiggleAnimation();
           showMeliodasClones();
           mediaPlayerHelper.startSateSateSateMulti();
+        }else{
+          showToast(getString(R.string.toast_tanchou));
+          mediaPlayerHelper.startTanchou();
         }
       }
     });
@@ -111,6 +114,7 @@ public class MainFragment extends BaseFragment {
   private void pauseAllSounds() {
     mediaPlayerHelper.pauseSateSateSate();
     mediaPlayerHelper.pauseSateSateSateMulti();
+    mediaPlayerHelper.pauseTanchou();
   }
 
   private void showToast(String message) {
