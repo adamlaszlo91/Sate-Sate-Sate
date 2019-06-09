@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -12,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import hu.evehcilabs.androidbase.BaseFragment;
 import hu.evehcilabs.satesatesate.R;
 import hu.evehcilabs.satesatesate.helper.MediaPlayerHelper;
+import hu.evehcilabs.satesatesate.util.TapCounterUtil;
 import hu.evehcilabs.satesatesate.view.MeliodasImageView;
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +25,7 @@ public class MainFragment extends BaseFragment {
   private ConstraintLayout meliodasFigureContainer;
   private MeliodasImageView meliodasImageView;
   private ArrayList<MeliodasImageView> meliodasClones = new ArrayList<>();
+  private TextView tapMeliodasTextView;
   private MediaPlayerHelper mediaPlayerHelper;
 
   public static MainFragment newInstance() {
@@ -56,6 +60,8 @@ public class MainFragment extends BaseFragment {
 
   private void initViews(View view) {
     meliodasFigureContainer = view.findViewById(R.id.container_meliodas_figure);
+    tapMeliodasTextView = view.findViewById(R.id.text_tap_meliodas);
+    tapCounterTextNeedsUpdate(TapCounterUtil.getTapCount(getActivity()));
     initMeliodas();
   }
 
@@ -69,19 +75,26 @@ public class MainFragment extends BaseFragment {
   private void initActions() {
     meliodasImageView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
+        tapCounterTextNeedsUpdate(TapCounterUtil.getIncreasedTapCount(getActivity()));
         stopAllAnimations();
         pauseAllSounds();
         float randomActionChange = new Random().nextFloat();
         if (randomActionChange < 0.5) {
+          showToast(getString(R.string.toast_sate_sate_sate));
           meliodasImageView.startWiggleAnimation();
           mediaPlayerHelper.startSateSateSate();
         } else {
+          showToast(getString(R.string.toast_sate_sate_sate_multi));
           meliodasImageView.startWiggleAnimation();
           showMeliodasClones();
           mediaPlayerHelper.startSateSateSateMulti();
         }
       }
     });
+  }
+
+  private void tapCounterTextNeedsUpdate(int tapCount) {
+    tapMeliodasTextView.setText(String.format("%s\n%d", getString(R.string.text_tap_meliodas), tapCount));
   }
 
   private void stopAllAnimations() {
@@ -98,6 +111,10 @@ public class MainFragment extends BaseFragment {
   private void pauseAllSounds() {
     mediaPlayerHelper.pauseSateSateSate();
     mediaPlayerHelper.pauseSateSateSateMulti();
+  }
+
+  private void showToast(String message) {
+    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
   }
 
   // region Meliodas clones
