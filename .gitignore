@@ -264,3 +264,4 @@ androidbase
 
 # Sensitive files
 google-services.json
+keystore.jks
