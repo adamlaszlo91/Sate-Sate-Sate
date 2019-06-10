@@ -1,13 +1,14 @@
 # Sate sate sate
-A fun little Android app featuring Meliodas from "The Seven Deadly Sins"
+A fun little Android app featuring Meliodas from "The Seven Deadly Sins". Performs various actions when the user taps Meliodas.
 
 ### Brief
 
 Inspired by this wonder: [Tuturu](https://play.google.com/store/apps/details?id=com.VizegrafIndie.Tuturu)
 
-### Screenshot
+Thanks [katelinelaine](https://www.deviantart.com/katelinelaine) for the awesome Meliodas image.
 
-*soon.*
+### Screenshot
+|<img src="docs/screenshot/1.png" alt="Screenshot 1" width="30%">|<img src="docs/screenshot/2.png" alt="Screenshot 2" width="30%">|<img src="docs/screenshot/3.png" alt="Screenshot 3" width="30%">|
 
 ------
 
