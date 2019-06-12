@@ -1,6 +1,8 @@
 # Sate sate sate
 A fun little Android app featuring Meliodas from "The Seven Deadly Sins". Performs various actions when the user taps Meliodas.
 
+<a href='https://play.google.com/store/apps/details?id=hu.evehcilabs.satesatesate&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width=20%/></a>
+
 ### Brief
 
 Inspired by this wonder: [Tuturu](https://play.google.com/store/apps/details?id=com.VizegrafIndie.Tuturu)
