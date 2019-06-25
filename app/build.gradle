@@ -1,3 +1,11 @@
+import java.text.SimpleDateFormat;
+
+static def generateUTCTimestamp() {
+  def dateFormat = new SimpleDateFormat("yyyyMMddHH")
+  dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"))
+  return dateFormat.format(new Date()).toInteger()
+}
+
 apply plugin: 'com.android.application'
 
 android {
@@ -6,8 +14,8 @@ android {
     applicationId "hu.evehcilabs.satesatesate"
     minSdkVersion 16
     targetSdkVersion 28
-    versionCode 3
-    versionName "1.0.1"
+    versionCode generateUTCTimestamp()
+    versionName "1.0.2"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
