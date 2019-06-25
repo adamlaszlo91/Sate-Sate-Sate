@@ -15,7 +15,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 28
     versionCode generateUTCTimestamp()
-    versionName "1.0.1"
+    versionName "1.0.2"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
