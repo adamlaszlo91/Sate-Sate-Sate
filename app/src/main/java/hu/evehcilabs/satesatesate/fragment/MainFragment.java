@@ -45,7 +45,7 @@ public class MainFragment extends BaseFragment {
 
   @Override public void onStop() {
     stopAllAnimations();
-    pauseAllSounds();
+    mediaPlayerHelper.stop();
     super.onStop();
   }
 
@@ -78,24 +78,24 @@ public class MainFragment extends BaseFragment {
       @Override public void onClick(View v) {
         tapCounterTextNeedsUpdate(TapCounterUtil.getIncreasedTapCount(getActivity()));
         stopAllAnimations();
-        pauseAllSounds();
+        mediaPlayerHelper.stop();
         float randomActionChange = new Random().nextFloat();
         if (randomActionChange < 0.05) {
           showToast(getString(R.string.toast_tanchou));
-          mediaPlayerHelper.startTanchou();
+          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.TANCHOU);
         } else if (randomActionChange < 0.15) {
           showToast(getString(R.string.toast_sate_sate_sate_multi));
           meliodasImageView.startWiggleAnimation();
           showMeliodasClones();
-          mediaPlayerHelper.startSateSateSateMulti();
+          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.SATE_SATE_SATE_MULTI);
         } else if (randomActionChange < 0.25) {
           showToast(getString(R.string.toast_sate_mix));
           meliodasImageView.startSpinningAnimation();
-          mediaPlayerHelper.startSateSateSateRemix();
+          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.SATE_SATE_SATE_REMIX);
         } else {
           showToast(getString(R.string.toast_sate_sate_sate));
           meliodasImageView.startWiggleAnimation();
-          mediaPlayerHelper.startSateSateSate();
+          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.SATE_SATE_SATE);
         }
       }
     });
@@ -108,20 +108,13 @@ public class MainFragment extends BaseFragment {
 
   private void stopAllAnimations() {
     meliodasImageView.stopAnimations();
-      for (MeliodasImageView meliodasClone : meliodasClones) {
-        if (ViewCompat.isAttachedToWindow(meliodasClone)) {
-          meliodasClone.stopAnimations();
-          meliodasFigureContainer.removeView(meliodasClone);
-        }
+    for (MeliodasImageView meliodasClone : meliodasClones) {
+      if (ViewCompat.isAttachedToWindow(meliodasClone)) {
+        meliodasClone.stopAnimations();
+        meliodasFigureContainer.removeView(meliodasClone);
       }
-      meliodasClones.clear();
-  }
-
-  private void pauseAllSounds() {
-    mediaPlayerHelper.pauseSateSateSate();
-    mediaPlayerHelper.pauseSateSateSateMulti();
-    mediaPlayerHelper.pauseTanchou();
-    mediaPlayerHelper.pauseSateSateSateRemix();
+    }
+    meliodasClones.clear();
   }
 
   private void showToast(String message) {
@@ -140,27 +133,27 @@ public class MainFragment extends BaseFragment {
   }
 
   private void initMeliodasClones() {
-      for (int i = 0; i < LOSTVAYNE_CLONE_MULTIPLIER; i++) {
-        MeliodasImageView meliodasClone = new MeliodasImageView(getActivity());
-        meliodasClone.setId(ViewCompat.generateViewId());
-        meliodasFigureContainer.addView(meliodasClone);
-        meliodasClone.setupSizeAndRandomPosition();
-        meliodasClones.add(meliodasClone);
-      }
+    for (int i = 0; i < LOSTVAYNE_CLONE_MULTIPLIER; i++) {
+      MeliodasImageView meliodasClone = new MeliodasImageView(getActivity());
+      meliodasClone.setId(ViewCompat.generateViewId());
+      meliodasFigureContainer.addView(meliodasClone);
+      meliodasClone.setupSizeAndRandomPosition();
+      meliodasClones.add(meliodasClone);
+    }
   }
 
   private void startMeliodasClonesAnimation() {
-      for (final MeliodasImageView meliodasClone : meliodasClones) {
-        meliodasClone.setVisibility(View.INVISIBLE);
-        meliodasClone.post(new Runnable() {
-          @Override public void run() {
-            if (ViewCompat.isAttachedToWindow(meliodasClone)) {
-              meliodasClone.setVisibility(View.VISIBLE);
-              meliodasClone.startBounceInOutAnimation();
-            }
+    for (final MeliodasImageView meliodasClone : meliodasClones) {
+      meliodasClone.setVisibility(View.INVISIBLE);
+      meliodasClone.post(new Runnable() {
+        @Override public void run() {
+          if (ViewCompat.isAttachedToWindow(meliodasClone)) {
+            meliodasClone.setVisibility(View.VISIBLE);
+            meliodasClone.startBounceInOutAnimation();
           }
-        });
-      }
+        }
+      });
+    }
   }
 
   // endregion
