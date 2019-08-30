@@ -9,11 +9,11 @@ static def generateUTCTimestamp() {
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 28
+  compileSdkVersion 29
   defaultConfig {
     applicationId "hu.evehcilabs.satesatesate"
     minSdkVersion 16
-    targetSdkVersion 28
+    targetSdkVersion 29
     versionCode generateUTCTimestamp()
     versionName "1.0.3"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -23,6 +23,10 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+  }
+
+  dataBinding{
+    enabled = true
   }
 }
 
@@ -34,6 +38,7 @@ dependencies {
   androidTestImplementation 'androidx.test:runner:1.2.0'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
   implementation 'com.intuit.sdp:sdp-android:1.0.6'
+  implementation "androidx.preference:preference:1.0.0"
 
   implementation project(path: ':androidbase')
 }
