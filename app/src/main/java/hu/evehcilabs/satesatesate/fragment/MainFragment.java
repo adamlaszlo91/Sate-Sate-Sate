@@ -49,7 +49,7 @@ public class MainFragment extends BaseFragment {
 
   @Override public void onStop() {
     stopAllAnimations();
-    mediaPlayerHelper.stop();
+    pauseAllSounds();
     super.onStop();
   }
 
@@ -79,32 +79,40 @@ public class MainFragment extends BaseFragment {
         setActionAndStatusBarColors(R.color.colorPrimary);
         stopAllAnimations();
         meliodasImageView.setImageResource(R.drawable.chibi_meliodas_by_katelinelaine_dccjqua);
-        mediaPlayerHelper.stop();
+        pauseAllSounds();
         float randomActionChange = new Random().nextFloat();
         if (randomActionChange < 0.01) {
           setActionAndStatusBarColors(R.color.hawk_skin);
           showToast(getString(R.string.toast_transpork));
           meliodasImageView.setImageResource(R.drawable.hawk_transpork);
-          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.TRANSPORK);
+          mediaPlayerHelper.startTranspork();
         } else if (randomActionChange < 0.05) {
           showToast(getString(R.string.toast_tanchou));
-          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.TANCHOU);
+          mediaPlayerHelper.startTanchou();
         } else if (randomActionChange < 0.15) {
           showToast(getString(R.string.toast_sate_sate_sate_multi));
           meliodasImageView.startWiggleAnimation();
           showMeliodasClones();
-          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.SATE_SATE_SATE_MULTI);
+          mediaPlayerHelper.startSateSateSateMulti();
         } else if (randomActionChange < 0.25) {
           showToast(getString(R.string.toast_sate_mix));
           meliodasImageView.startSpinningAnimation();
-          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.SATE_SATE_SATE_REMIX);
+          mediaPlayerHelper.startSateSateSateRemix();
         } else {
           showToast(getString(R.string.toast_sate_sate_sate));
           meliodasImageView.startWiggleAnimation();
-          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.SATE_SATE_SATE);
+          mediaPlayerHelper.startSateSateSate();
         }
       }
     });
+  }
+
+  private void pauseAllSounds() {
+    mediaPlayerHelper.pauseSateSateSate();
+    mediaPlayerHelper.pauseSateSateSateMulti();
+    mediaPlayerHelper.pauseTanchou();
+    mediaPlayerHelper.pauseSateSateSateRemix();
+    mediaPlayerHelper.pauseTranspork();
   }
 
   private void stopAllAnimations() {
