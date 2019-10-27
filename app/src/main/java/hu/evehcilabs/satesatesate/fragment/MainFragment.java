@@ -75,9 +75,16 @@ public class MainFragment extends BaseFragment {
       @Override public void onClick(View v) {
         tapCounterHelper.onNewTap();
         stopAllAnimations();
+        meliodasImageView.setImageResource(R.drawable.chibi_meliodas_by_katelinelaine_dccjqua);
         mediaPlayerHelper.stop();
         float randomActionChange = new Random().nextFloat();
-        if (randomActionChange < 0.05) {
+        // TODO: Remove mock value
+        randomActionChange = 0.001f;
+        if (randomActionChange < 0.01) {
+          showToast(getString(R.string.toast_transpork));
+          meliodasImageView.setImageResource(R.drawable.hawk_transpork);
+          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.TRANSPORK);
+        } else if (randomActionChange < 0.05) {
           showToast(getString(R.string.toast_tanchou));
           mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.TANCHOU);
         } else if (randomActionChange < 0.15) {
