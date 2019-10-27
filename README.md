@@ -10,7 +10,7 @@ Inspired by this wonder: [Tuturu](https://play.google.com/store/apps/details?id=
 Thanks [katelinelaine](https://www.deviantart.com/katelinelaine) for the awesome Meliodas image.
 
 ### Screenshot
-|<img src="docs/screenshot/1.png" alt="Screenshot 1" width="30%">|<img src="docs/screenshot/2.png" alt="Screenshot 2" width="30%">|<img src="docs/screenshot/3.png" alt="Screenshot 3" width="30%">|
+|<img src="docs/screenshot/1.png" alt="Screenshot 1" width="30%">|<img src="docs/screenshot/3.png" alt="Screenshot 3" width="30%">|<img src="docs/screenshot/4.png" alt="Screenshot 4" width="30%">|
 
 ------
 

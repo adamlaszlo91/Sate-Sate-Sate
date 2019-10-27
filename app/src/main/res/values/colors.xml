@@ -4,5 +4,7 @@
   <color name="colorPrimaryDark">#417760</color>
   <color name="colorAccent">#D81B60</color>
 
+  <color name="hawk_skin">#58345b</color>
+
   <color name="background">#ffffff</color>
 </resources>
