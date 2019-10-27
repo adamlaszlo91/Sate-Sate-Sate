@@ -81,8 +81,6 @@ public class MainFragment extends BaseFragment {
         meliodasImageView.setImageResource(R.drawable.chibi_meliodas_by_katelinelaine_dccjqua);
         mediaPlayerHelper.stop();
         float randomActionChange = new Random().nextFloat();
-        // TODO: Remove mock value
-        randomActionChange = 0.001f;
         if (randomActionChange < 0.01) {
           setActionAndStatusBarColors(R.color.hawk_skin);
           showToast(getString(R.string.toast_transpork));
