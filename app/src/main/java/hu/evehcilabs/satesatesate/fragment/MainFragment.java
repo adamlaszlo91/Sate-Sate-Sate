@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
 import hu.evehcilabs.androidbase.BaseFragment;
 import hu.evehcilabs.satesatesate.R;
+import hu.evehcilabs.satesatesate.databinding.FragmentMainBinding;
 import hu.evehcilabs.satesatesate.helper.MediaPlayerHelper;
-import hu.evehcilabs.satesatesate.util.TapCounterUtil;
+import hu.evehcilabs.satesatesate.helper.TapCounterHelper;
 import hu.evehcilabs.satesatesate.view.MeliodasImageView;
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,12 +22,13 @@ import java.util.Random;
 public class MainFragment extends BaseFragment {
   private static final int LOSTVAYNE_CLONE_MULTIPLIER = 4;
 
-  private ConstraintLayout meliodasFigureContainer;
+  private TapCounterHelper tapCounterHelper;
   private MeliodasImageView meliodasImageView;
   private ArrayList<MeliodasImageView> meliodasClones = new ArrayList<>();
-  private TextView tapMeliodasTextView;
   private MediaPlayerHelper mediaPlayerHelper;
   private Toast currentToast;
+
+  private FragmentMainBinding binding;
 
   public static MainFragment newInstance() {
     return new MainFragment();
@@ -36,6 +37,7 @@ public class MainFragment extends BaseFragment {
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     mediaPlayerHelper = new MediaPlayerHelper(getActivity());
+    tapCounterHelper = new TapCounterHelper(context);
   }
 
   @Override public void onDetach() {
@@ -53,30 +55,25 @@ public class MainFragment extends BaseFragment {
     @NonNull LayoutInflater inflater, @Nullable ViewGroup container,
     @Nullable Bundle savedInstanceState)
   {
-    View view = inflater.inflate(R.layout.fragment_main, container, false);
-    initViews(view);
-    initActions();
-    return view;
-  }
-
-  private void initViews(View view) {
-    meliodasFigureContainer = view.findViewById(R.id.container_meliodas_figure);
-    tapMeliodasTextView = view.findViewById(R.id.text_tap_meliodas);
-    tapCounterTextNeedsUpdate(TapCounterUtil.getTapCount(getActivity()));
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+    binding.setTapCounterHelper(tapCounterHelper);
+    tapCounterHelper.updateTapCounterText();
     initMeliodas();
+    initActions();
+    return binding.getRoot();
   }
 
   private void initMeliodas() {
     meliodasImageView = new MeliodasImageView(getActivity());
     meliodasImageView.setId(ViewCompat.generateViewId());
-    meliodasFigureContainer.addView(meliodasImageView);
+    binding.containerMeliodasFigure.addView(meliodasImageView);
     meliodasImageView.setupSizeAndCenterPosition();
   }
 
   private void initActions() {
     meliodasImageView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        tapCounterTextNeedsUpdate(TapCounterUtil.getIncreasedTapCount(getActivity()));
+        tapCounterHelper.onNewTap();
         stopAllAnimations();
         mediaPlayerHelper.stop();
         float randomActionChange = new Random().nextFloat();
@@ -101,17 +98,12 @@ public class MainFragment extends BaseFragment {
     });
   }
 
-  private void tapCounterTextNeedsUpdate(int tapCount) {
-    tapMeliodasTextView.setText(
-      String.format("%s\n%d", getString(R.string.text_tap_meliodas), tapCount));
-  }
-
   private void stopAllAnimations() {
     meliodasImageView.stopAnimations();
     for (MeliodasImageView meliodasClone : meliodasClones) {
       if (ViewCompat.isAttachedToWindow(meliodasClone)) {
         meliodasClone.stopAnimations();
-        meliodasFigureContainer.removeView(meliodasClone);
+        binding.containerMeliodasFigure.removeView(meliodasClone);
       }
     }
     meliodasClones.clear();
@@ -136,7 +128,7 @@ public class MainFragment extends BaseFragment {
     for (int i = 0; i < LOSTVAYNE_CLONE_MULTIPLIER; i++) {
       MeliodasImageView meliodasClone = new MeliodasImageView(getActivity());
       meliodasClone.setId(ViewCompat.generateViewId());
-      meliodasFigureContainer.addView(meliodasClone);
+      binding.containerMeliodasFigure.addView(meliodasClone);
       meliodasClone.setupSizeAndRandomPosition();
       meliodasClones.add(meliodasClone);
     }
