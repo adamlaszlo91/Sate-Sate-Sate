@@ -11,7 +11,7 @@ import java.util.Map;
 public class MediaPlayerHelper {
 
   public enum SoundIdentifier {
-    SATE_SATE_SATE, SATE_SATE_SATE_MULTI, TANCHOU, SATE_SATE_SATE_REMIX;
+    SATE_SATE_SATE, SATE_SATE_SATE_MULTI, TANCHOU, SATE_SATE_SATE_REMIX, TRANSPORK;
   }
 
   private static HashMap<SoundIdentifier, Integer> soundResourceMap =
@@ -20,6 +20,7 @@ public class MediaPlayerHelper {
       put(SoundIdentifier.SATE_SATE_SATE_MULTI, R.raw.sate_sate_sate_multi);
       put(SoundIdentifier.TANCHOU, R.raw.ban_taisho);
       put(SoundIdentifier.SATE_SATE_SATE_REMIX, R.raw.sate_sate_sate_remix);
+      put(SoundIdentifier.TRANSPORK, R.raw.hawk_transpork);
     }};
 
   private HashMap<SoundIdentifier, Integer> soundIdentifierMap = new HashMap<>();

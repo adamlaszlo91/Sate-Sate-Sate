@@ -1,6 +1,12 @@
 package hu.evehcilabs.satesatesate.activity;
 
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+import androidx.annotation.ColorRes;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import hu.evehcilabs.androidbase.BaseActivity;
 import hu.evehcilabs.androidbase.TransactionSettings;
@@ -18,6 +24,18 @@ public class MainActivity extends BaseActivity {
 
     if (savedInstanceState == null) {
       gotoMainFragment();
+    }
+  }
+
+  public void setActionAndStatusBarColors(@ColorRes int color) {
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setBackgroundDrawable(
+        new ColorDrawable(ResourcesCompat.getColor(getResources(), color, null)));
+    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      Window window = getWindow();
+      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+      window.setStatusBarColor(ResourcesCompat.getColor(getResources(), color, null));
     }
   }
 

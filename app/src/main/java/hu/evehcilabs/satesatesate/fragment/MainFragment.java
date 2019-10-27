@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import hu.evehcilabs.androidbase.BaseFragment;
 import hu.evehcilabs.satesatesate.R;
+import hu.evehcilabs.satesatesate.activity.MainActivity;
 import hu.evehcilabs.satesatesate.databinding.FragmentMainBinding;
 import hu.evehcilabs.satesatesate.helper.MediaPlayerHelper;
 import hu.evehcilabs.satesatesate.helper.TapCounterHelper;
@@ -74,10 +76,17 @@ public class MainFragment extends BaseFragment {
     meliodasImageView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         tapCounterHelper.onNewTap();
+        setActionAndStatusBarColors(R.color.colorPrimary);
         stopAllAnimations();
+        meliodasImageView.setImageResource(R.drawable.chibi_meliodas_by_katelinelaine_dccjqua);
         mediaPlayerHelper.stop();
         float randomActionChange = new Random().nextFloat();
-        if (randomActionChange < 0.05) {
+        if (randomActionChange < 0.01) {
+          setActionAndStatusBarColors(R.color.hawk_skin);
+          showToast(getString(R.string.toast_transpork));
+          meliodasImageView.setImageResource(R.drawable.hawk_transpork);
+          mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.TRANSPORK);
+        } else if (randomActionChange < 0.05) {
           showToast(getString(R.string.toast_tanchou));
           mediaPlayerHelper.play(MediaPlayerHelper.SoundIdentifier.TANCHOU);
         } else if (randomActionChange < 0.15) {
@@ -115,6 +124,12 @@ public class MainFragment extends BaseFragment {
     }
     currentToast = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
     currentToast.show();
+  }
+
+  private void setActionAndStatusBarColors(@ColorRes int color) {
+    if (getActivity() instanceof MainActivity) {
+      ((MainActivity)getActivity()).setActionAndStatusBarColors(color);
+    }
   }
 
   // region Meliodas clones
